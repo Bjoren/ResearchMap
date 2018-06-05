@@ -7,7 +7,6 @@ module.exports = function(app) {
     .get(reportController.getReports)
     .post(reportController.postReport);
 
-
   app.route('/reports/:reportId')
     .get(reportController.getReport)
     .delete(reportController.deleteReport);
