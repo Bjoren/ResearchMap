@@ -15,13 +15,13 @@ exports.getReports = function(request, response) {
 };
 
 exports.postReport = function(request, response) {
-	var validation = reportModel.validateReport(request.body);
+	var validatedReport = reportModel.validateReport(request.body);
 
-	if(validation === true) {
+	if(validatedReport.error === null) {
 		var databaseResponse = database.reports.save(request.body); //TODO: nodemon config to ignore DB updates, constant restarts!
 		response.json(databaseResponse);
 	} else {
-		response.json(validation);
+		response.json(validatedReport);
 	}
 };
 
