@@ -60,5 +60,6 @@ typings/
 # next.js build output
 .next
 
+./API-server/database/*
 ./API-server/node_modules
 ./Web-server/node_modules
