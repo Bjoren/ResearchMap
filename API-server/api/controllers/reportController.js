@@ -6,19 +6,29 @@ database.connect('./database', ['reports']);
 
 exports.getReport = function(request, response) {
 	var databaseResponse = database.reports.findOne({_id: request.params.reportId});
-		response.json(databaseResponse);
+	response.json(databaseResponse);
 };
 
 exports.getReports = function(request, response) {
 	var databaseResponse = database.reports.find({});
-		response.json({databaseResponse});
+	var outdatedReports = reportModel.getOutdatedReports(databaseResponse);
+	
+	if(outdatedReports != null) {
+		console.log(outdatedReports);
+		for (var i = outdatedReports.length - 1; i >= 0; i--) {
+			console.log(outdatedReports[i]);
+			database.reports.remove({_id: outdatedReports[i]});
+		}
+		databaseResponse = database.reports.find({});
+	}
+	response.json(databaseResponse);
 };
 
 exports.postReport = function(request, response) {
 	var validatedReport = reportModel.validateReport(request.body);
 
-	if(validatedReport.error === null) {
-		var databaseResponse = database.reports.save(request.body); //TODO: nodemon config to ignore DB updates, constant restarts!
+	if(!validatedReport.error) {
+		var databaseResponse = database.reports.save(validatedReport); //TODO: nodemon config to ignore DB updates, constant restarts!
 		response.json(databaseResponse);
 	} else {
 		response.json(validatedReport);
@@ -27,5 +37,5 @@ exports.postReport = function(request, response) {
 
 exports.deleteReport = function(request, response) {
 	var databaseResponse = database.reports.remove({_id: request.params.reportId});
-		response.json(databaseResponse);
+	response.json(databaseResponse);
 };
