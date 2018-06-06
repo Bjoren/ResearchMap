@@ -4,6 +4,7 @@
 	"map": {
 		"startingPointX": 56.1604,
 		"startingPointY": 15.5892,
-		"startingPointZoomLevel": 15
+		"startingPointZoomLevel": 15,
+		"accessToken": "pk.eyJ1IjoiY2xlYW5zdHJlYW0iLCJhIjoiY2ppMDhhb3BrMTViZTNxbzM5ZXc0YTJwMyJ9.S-SmBGGTNn1r7b2J-m-qTA"
 	}
 }
