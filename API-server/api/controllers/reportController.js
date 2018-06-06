@@ -14,7 +14,6 @@ exports.getReports = function(request, response) {
 	var outdatedReports = reportModel.getOutdatedReports(databaseResponse);
 	
 	if(outdatedReports != null) {
-		console.log(outdatedReports);
 		for (var i = outdatedReports.length - 1; i >= 0; i--) {
 			console.log(outdatedReports[i]);
 			database.reports.remove({_id: outdatedReports[i]});
