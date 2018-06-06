@@ -1,5 +1,7 @@
 'use strict';
 
+//REST methods ----------------------------------------------
+
 this.getConfig = function(successCallback, errorCallback) {
 	$.ajax ({
 	        url: 'http://localhost:3000/config',
@@ -18,6 +20,8 @@ this.getReports = function(successCallback, errorCallback) {
 	    })
 }
 
+//Map methods -----------------------------------------------
+
 this.setUpMap = function(CONFIG) {
         map = L.map('mapid').setView([CONFIG.startingPointX, CONFIG.startingPointY], CONFIG.startingPointZoomLevel);
 
@@ -34,14 +38,33 @@ this.createPopupText = function(report) {
 		"<br><b>Reward: </b>" + report.reward;
 }
 
-this.setUpMarkers = function(reports) {
-	for (var i = reports.length - 1; i >= 0; i--) {
-		var marker = L.marker([reports[i].x, reports[i].y])
-		.bindPopup(createPopupText(reports[i]))
-		.addTo(map);
+this.createIcon = function(reward) {
+	var iconUrl = getIconUrl(reward);
+
+	if(iconUrl != null) {
+		var rewardIcon = L.icon({
+		    iconUrl: iconUrl,
+		    iconSize: [40, 40]
+		});
+		return {icon: rewardIcon};
 	}
 }
 
+this.setUpReports = function(reports) {
+	reportsList = reports;
+
+	for (var i = reports.length - 1; i >= 0; i--) {
+		var marker = L.marker([reports[i].x, reports[i].y], createIcon(reports[i].reward))
+		.bindPopup(createPopupText(reports[i]));
+
+		marker.addTo(map);
+	}
+}
+
+//Main flow---------------------------------------------------
+
+var reportsList;
 var map;
+
 getConfig(function(resp) {setUpMap(resp)}, function() { alert('Connection failed to config API'); });
-getReports(function(resp) {setUpMarkers(resp)}, function() { alert('Connection failed to reports API'); });
+getReports(function(resp) {setUpReports(resp)}, function() { alert('Connection failed to reports API'); });
