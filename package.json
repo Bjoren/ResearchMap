@@ -1,0 +1,21 @@
+{
+  "name": "ResearchMapServer",
+  "version": "1.0.0",
+  "description": "A node.js server for a Pokémon Go Research field report web service",
+  "main": "index.js",
+  "scripts": {
+    "install": "npm install http-server -g && npm install concurrently -g",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "concurrently \"nodemon ./API-server/server.js\" \"http-server ./Web-server\" --kill-others"
+  },
+  "author": "Cleanstream",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^1.17.5"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "diskdb": "^0.1.17",
+    "express": "^4.16.3"
+  }
+}
