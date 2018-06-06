@@ -1,25 +1,5 @@
 'use strict';
 
-//REST methods ----------------------------------------------
-
-this.getConfig = function(successCallback, errorCallback) {
-	$.ajax ({
-	        url: 'http://' + window.location.hostname + ':3000/config', //TODO: Remove hardcoding of port
-	        datatype: "json",
-	        success: successCallback,
-	        error: errorCallback
-	    })
-}
-
-this.getReports = function(successCallback, errorCallback) {
-	$.ajax ({
-	        url: 'http://' + window.location.hostname + ':3000/reports', //TODO: Remove hardcoding of port
-	        datatype: "json",
-	        success: successCallback,
-	        error: errorCallback
-	    })
-}
-
 //Map methods -----------------------------------------------
 
 this.onRightClick = function(event){
@@ -31,11 +11,21 @@ this.onRightClick = function(event){
 
 	userReportMarker.addTo(map).openPopup();
 
+	map.setView(event.latlng, 20);
+
 	//Pop up data form
 
 	//Fire post report to DB
 
 	//Update reportsList and run setUpReports
+
+	/*postReport({
+	"quest": "Use HTML post method",
+	"reward": "Something random",
+	"x": "56.1570",
+	"y": "15.5939",
+	"reporter": "Cleanstream"
+	}, function(resp){console.log(resp);}, function(resp) {console.alert(resp);})*/
 }
 
 this.setUpMap = function(CONFIG) {
@@ -62,7 +52,7 @@ this.createIcon = function(reward) {
 	if(iconUrl != null) {
 		var rewardIcon = L.icon({
 		    iconUrl: iconUrl,
-		    iconSize: [40, 40],
+		    iconSize: [80, 80],
 		    popupAnchor: [-0, -15]
 		});
 		return {icon: rewardIcon};
@@ -87,5 +77,5 @@ var userReportMarker;
 var reportsList;
 var map;
 
-getConfig(function(resp) {setUpMap(resp)}, function() { alert('Connection failed to config API'); });
+getConfig(function(resp) {setUpMap(resp)}, function() { alert(resp); });
 getReports(function(resp) {setUpReports(resp)}, function() { alert('Connection failed to reports API'); });
