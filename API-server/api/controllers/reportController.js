@@ -2,7 +2,7 @@
 
 var reportModel = require('../models/reportModel');
 var database = require('diskdb');
-database.connect('./database', ['reports']);
+database.connect('./API-server/database', ['reports']);
 
 exports.getReport = function(request, response) {
 	var databaseResponse = database.reports.findOne({_id: request.params.reportId});
