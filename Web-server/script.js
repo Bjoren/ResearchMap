@@ -1,1 +1,6 @@
-var map = L.map('mapid').setView([56.1604, 15.5892], 15);
+var CONFIG = require('../config.json');
+
+var map = L.map('mapid').setView([
+	CONFIG.map.startingPointX,
+	CONFIG.map.startingPointY], 
+	CONFIG.map.startingPointZoomLevel);

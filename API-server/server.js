@@ -1,6 +1,8 @@
+var CONFIG = require('../config.json');
+
 var express = require('express'),
 	app = express(),
-	port = process.env.PORT || 3000, //TODO: Load port from config
+	port = process.env.PORT || CONFIG.databasePort,
 	bodyParser = require('body-parser');
 
 app.use(bodyParser.urlencoded({ extended: true }));

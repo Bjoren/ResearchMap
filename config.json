@@ -1,0 +1,9 @@
+{
+	"databasePort": 3000,
+
+	"map": {
+		"startingPointX": 56.1604,
+		"startingPointY": 15.5892,
+		"startingPointZoomLevel": 15
+	}
+}
