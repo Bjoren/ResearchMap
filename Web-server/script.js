@@ -1,32 +1,32 @@
 'use strict';
 
-//Map methods -----------------------------------------------
+//User action methods ---------------------------------------
 
 this.onRightClick = function(event){
 	if(userReportMarker != null) { map.removeLayer(userReportMarker); } //Remove old marker
 
 	console.log(event);
 	
-	userReportMarker = L.marker(event.latlng, {"draggable": true}).bindPopup("event.latlng").openPopup();
+	userReportMarker = L.marker(event.latlng, {"draggable": true}).bindPopup("Report here?").openPopup();
 
 	userReportMarker.addTo(map).openPopup();
 
 	map.setView(event.latlng, 20);
 
-	//Pop up data form
-
-	//Fire post report to DB
-
-	//Update reportsList and run setUpReports
-
-	/*postReport({
-	"quest": "Use HTML post method",
-	"reward": "Something random",
-	"x": "56.1570",
-	"y": "15.5939",
-	"reporter": "Cleanstream"
-	}, function(resp){console.log(resp);}, function(resp) {console.alert(resp);})*/
+	//Handle marker out of bounds
 }
+
+this.submitReport = function() {
+	postReport({
+	"quest": document.getElementById("reportWindow").elements["task"].value,
+	"reward": document.getElementById("reportWindow").elements["reward"].value,
+	"x": userReportMarker.getLatLng().lat,
+	"y": userReportMarker.getLatLng().lng,
+	"reporter": "Cleanstream"
+	}, function(resp){console.log(resp);}, function(resp) {console.alert(resp);})
+}
+
+//Map methods -----------------------------------------------
 
 this.setUpMap = function(CONFIG) {
     map = L.map('mapid').setView([CONFIG.startingPointX, CONFIG.startingPointY], CONFIG.startingPointZoomLevel);
@@ -43,7 +43,8 @@ this.setUpMap = function(CONFIG) {
 
 this.createPopupText = function(report) {
 	return "<b>Task: </b>" + report.quest + 
-		"<br><b>Reward: </b>" + report.reward;
+		"<br><b>Reward: </b>" + report.reward +
+		"<br><br>Reported by " + report.reporter + ".";
 }
 
 this.createIcon = function(reward) {
@@ -71,7 +72,7 @@ this.setUpReports = function(reports) {
 	}
 }
 
-//Main flow---------------------------------------------------
+//Main flow-------------------------------------------------
 
 var userReportMarker;
 var reportsList;

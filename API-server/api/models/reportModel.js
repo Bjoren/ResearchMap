@@ -2,7 +2,7 @@ exports.validateReport = function(report) {
 
 	if(!report.quest) { return createError("Missing required field 'quest'")}; //TODO: Max length? Compare to list of known quests?
 	if(!report.reward) { return createError("Missing required field 'reward'")};
-	if(!report.reporter) { return createError("Missing required field 'reporter'")};
+	if(!report.reporter) { return createError("Missing required field 'reporter'")}; //TODO: This should recieve a token or something and validate towards Discord's OAuth
 	if(!report.x) { return createError("Missing x coordinate")}; //TODO: Define max ranges in configuration file somewhere
 	if(!report.y) { return createError("Missing y coordinate")};
 
