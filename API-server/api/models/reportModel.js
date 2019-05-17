@@ -1,9 +1,9 @@
 exports.validateReport = function(report) {
 
-	if(!report.quest) { return createError("Missing required field 'quest'")}; //TODO: Max length? Compare to list of known quests?
+	if(!report.task) { return createError("Missing required field 'task'")}; //TODO: Max length? Compare to list of known tasks?
 	if(!report.reward) { return createError("Missing required field 'reward'")};
 	if(!report.reporter) { return createError("Missing required field 'reporter'")}; //TODO: This should recieve a token or something and validate towards Discord's OAuth
-	if(!report.x) { return createError("Missing x coordinate")}; //TODO: Define max ranges in configuration file somewhere
+	if(!report.x) { return createError("Missing x coordinate")}; //TODO: Restrict to max values defined in config
 	if(!report.y) { return createError("Missing y coordinate")};
 
 	return filterReport(report);
@@ -11,8 +11,9 @@ exports.validateReport = function(report) {
 
 exports.getOutdatedReports = function(reports) {
 	var outdatedReports = [];
+	todaysDate = formatDate(new Date());
 	for (var i = reports.length - 1; i >= 0; i--) {
-		if(formatDate(new Date(reports[i].date)) != formatDate(new Date())){
+		if(formatDate(new Date(reports[i].date)) != todaysDate){
 			outdatedReports.push(reports[i]._id);
 		}
 	}
@@ -29,7 +30,7 @@ filterReport = function(report) {
 	var currentDate = new Date();
 	var formattedDate = formatDate(currentDate);
 
-	filteredReport.quest = report.quest;
+	filteredReport.task = report.task;
 	filteredReport.reward = report.reward;
 	filteredReport.x = report.x;
 	filteredReport.y = report.y;

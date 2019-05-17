@@ -18,7 +18,7 @@ this.onRightClick = function(event){
 
 this.submitReport = function() {
 	postReport({
-	"quest": document.getElementById("reportWindow").elements["task"].value,
+	"task": document.getElementById("reportWindow").elements["task"].value,
 	"reward": document.getElementById("reportWindow").elements["reward"].value,
 	"x": userReportMarker.getLatLng().lat,
 	"y": userReportMarker.getLatLng().lng,
@@ -42,7 +42,7 @@ this.setUpMap = function(CONFIG) {
 }
 
 this.createPopupText = function(report) {
-	return "<b>Task: </b>" + report.quest + 
+	return "<b>Task: </b>" + report.task + 
 		"<br><b>Reward: </b>" + report.reward +
 		"<br><br>Reported by " + report.reporter + ".";
 }
@@ -61,7 +61,6 @@ this.createIcon = function(reward) {
 }
 
 this.setUpReports = function(reports) {
-
 	reportsList = reports;
 
 	for (var i = reports.length - 1; i >= 0; i--) {
