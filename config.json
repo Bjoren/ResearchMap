@@ -2,8 +2,12 @@
 	"databasePort": 3000,
 
 	"map": {
-		"startingPointX": 56.1604,
-		"startingPointY": 15.5892,
+		"boundaryLatMin": 0.0,
+		"boundaryLatMax": 2.0,
+		"boundaryLngMin": 0.0,
+		"boundaryLngMax": 2.0,
+		"startingPointX": 1.0,
+		"startingPointY": 1.0,
 		"startingPointZoomLevel": 15,
 		"accessToken": ""
 	}
