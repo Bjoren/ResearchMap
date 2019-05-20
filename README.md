@@ -91,6 +91,7 @@ Now open a web browser, the application should be accessible at:
 
 ### API documentation:
 Postman collection can be found here:
+
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/d7d309a9f5c17da5edc0)
 
 To avoid accidentally commiting the config.json file along with your changes, I recommend running the command:
