@@ -7,9 +7,9 @@ In order to deploy and run the ResearchMap web application, you must have:
  - npm and nodejs system path variables configured
  - A [MapBox account with public access token](https://account.mapbox.com/access-tokens/) available
 
-## How to deploy
+## How to Deploy
 
-### Configuring application
+### Configuring Application
 
 Clone the git repo. The development branch is likely more up to date, but might not be stable at all times.
 
@@ -64,7 +64,7 @@ Any attempts to register a Pokéstop with a latitude higher than the boundaryLat
 
 I recommend that you use a website [such as this](https://www.latlong.net/) to find accurate values.
 
-### Starting the application
+### Starting the Application
 
 To start the application, you simply run these commands from your prefered CLI:
 
@@ -96,12 +96,14 @@ Now open a web browser, the application should be accessible at:
 >localhost:<WEB_PORT>/index.html
 (Web port is 8080 by default)
 
-## For developers
+## For Developers
 
-### API documentation:
+### Additional Resources:
 Postman collection can be found here:
 
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/d7d309a9f5c17da5edc0)
+
+### Tips
 
 To avoid accidentally commiting the config.json file along with your changes, I recommend running the command:
 
