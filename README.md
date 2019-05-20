@@ -76,7 +76,7 @@ Read the CLI log. Without errors, it should look like this:
 ```
 npm start
 
-> ResearchMapServer@1.0.0 start C:\Code\ResearchMap\ResearchMap
+> ResearchMapServer@1.0.0 start <LOCAL_PATH>\ResearchMap
 > concurrently "nodemon ./API-server/server.js" "http-server ./Web-server" --kill-others
 
 [1] Starting up http-server, serving ./Web-server
