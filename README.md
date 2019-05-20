@@ -35,7 +35,10 @@ The contents of the file will look something like this:
 I've excluded everything but the "map" object for now, since we are only concerned with that.
 
 Brief explanation of each property and what it does:
-`accessToken` - Your MapBox access token. I recommend registering a new *public* token, separate from your default public token.
+
+`accessToken`
+
+Your MapBox access token. I recommend registering a new *public* token, separate from your default public token.
 End-users will have access to this token, so make sure it's not a private token (private start with sk.*, public starts with pk.*)
 Additionally, make sure you have set it to grant only read rights.
 For additional security, you could set up a [URL-restriction](https://docs.mapbox.com/help/how-mapbox-works/access-tokens/#using-url-restrictions).
@@ -43,15 +46,18 @@ For additional security, you could set up a [URL-restriction](https://docs.mapbo
 **You must** have a valid token set up, or the map will not render any tiles.**
 
 `startingPointZoomLevel`
+
 The level of zoom the map starts out with.
 At zoom level 0 you see the whole world, at zoom level 16 you could see a small road.
 I've found that zoom level 15 is a good starting point, providing good overview.
 
 `startingPointLat, startingPointLng`
+
 [Latitude and Longitude](https://www.latlong.net/) coordinates to the center of the area the map starts out at when the site is refreshed.
 If you are unfamiliar with latitude and longitude, think of them as the X and Y values of any coordinate system (like a graph) respectively.
 
 `boundaryLatitudeMin/Max, boundaryLongitudeMin/Max`
+
 These values define the area in which the users are allowed to register Pokéstops and by extension, report field research.
 This is to limit use of the map to your local community so it doesn't scale out of hand.
 Any attempts to register a Pokéstop with a latitude higher than the boundaryLatMax will be rejected, for example.
@@ -95,4 +101,5 @@ Postman collection can be found here:
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/d7d309a9f5c17da5edc0)
 
 To avoid accidentally commiting the config.json file along with your changes, I recommend running the command:
+
 `git update-index --skip-worktree config.json` in your local git repo.
