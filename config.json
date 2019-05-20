@@ -6,8 +6,8 @@
 		"boundaryLatMax": 2.0,
 		"boundaryLngMin": 0.0,
 		"boundaryLngMax": 2.0,
-		"startingPointX": 1.0,
-		"startingPointY": 1.0,
+		"startingPointLat": 1.0,
+		"startingPointLng": 1.0,
 		"startingPointZoomLevel": 15,
 		"accessToken": ""
 	}
