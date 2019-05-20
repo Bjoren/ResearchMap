@@ -66,9 +66,12 @@ I recommend that you use a website [such as this](https://www.latlong.net/) to f
 
 ### Starting the application
 
-From your prefered CLI, simply run the commands:
+To start the application, you simply run these commands from your prefered CLI:
+
 `npm install` (The first time only)
+
 `npm start`
+
 Read the CLI log. Without errors, it should look like this:
 ```
 npm start
