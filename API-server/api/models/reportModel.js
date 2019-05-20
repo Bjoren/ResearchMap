@@ -1,5 +1,8 @@
+var CONFIG = require('../../../config.json');
+
 exports.validateReport = function(report) {
 
+	if(!isWithinBounds(report.x, report.y)) {return createError("Report is out of bounds")};
 	if(!report.task) { return createError("Missing required field 'task'")}; //TODO: Max length? Compare to list of known tasks?
 	if(!report.reward) { return createError("Missing required field 'reward'")};
 	if(!report.reporter) { return createError("Missing required field 'reporter'")}; //TODO: This should recieve a token or something and validate towards Discord's OAuth
@@ -7,6 +10,10 @@ exports.validateReport = function(report) {
 	if(!report.y) { return createError("Missing y coordinate")};
 
 	return filterReport(report);
+}
+
+var isWithinBounds = function(x, y) {
+	return(x > CONFIG.map.boundaryLatMin && x < CONFIG.map.boundaryLatMax && y > CONFIG.map.boundaryLngMin && y < CONFIG.map.boundaryLngMax);
 }
 
 exports.getOutdatedReports = function(reports) {
