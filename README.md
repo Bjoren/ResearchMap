@@ -3,7 +3,7 @@ A web-app that allows Pokémon Go players to collaborate on mapping out field re
 
 ## Prerequisites:
 In order to deploy and run the ResearchMap web application, you must have:
- - [NodeJS and NPM](https://nodejs.org/en/) installed. (https://nodejs.org/en/)
+ - [NodeJS and NPM](https://nodejs.org/en/) installed.
  - npm and nodejs system path variables configured
  - A [MapBox account with public access token](https://account.mapbox.com/access-tokens/) available
 
