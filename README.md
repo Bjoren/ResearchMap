@@ -9,7 +9,7 @@ In order to deploy and run the ResearchMap web application, you must have:
 
 ## How to deploy
 
-###Configuring application
+### Configuring application
 
 Clone the git repo. The development branch is likely more up to date, but might not be stable at all times.
 
