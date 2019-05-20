@@ -1,7 +1,7 @@
 'use strict';
 
-var DATABASE_PORT = 3000; //TODO: Remove hardcoded port
-var DATABASE_URL = 'http://' + window.location.hostname + ':' + DATABASE_PORT
+var API_PORT = 3000; //TODO: Remove hardcoded port
+var API_URL = 'http://' + window.location.hostname + ':' + API_PORT;
 
 this.getIconUrl = function(reward) { //TODO: There's definitely a better way to do this
 	switch(reward) {
@@ -18,7 +18,7 @@ this.getIconUrl = function(reward) { //TODO: There's definitely a better way to 
 
 this.getConfig = function(successCallback, errorCallback) {
 	$.ajax ({
-	        url: DATABASE_URL + '/config',
+	        url: API_URL + '/config',
 	        datatype: "json",
 	        success: successCallback,
 	        error: errorCallback
@@ -27,7 +27,7 @@ this.getConfig = function(successCallback, errorCallback) {
 
 this.getReports = function(successCallback, errorCallback) {
 	$.ajax ({
-	        url: DATABASE_URL + '/reports',
+	        url: API_URL + '/reports',
 	        datatype: "json",
 	        success: successCallback,
 	        error: errorCallback
@@ -36,7 +36,7 @@ this.getReports = function(successCallback, errorCallback) {
 
 this.postReport = function(report, successCallback, errorCallback) {
 	$.ajax ({
-	        url: DATABASE_URL + '/reports',
+	        url: API_URL + '/reports',
 	        type: "POST",
 	        data: report,
 	        datatype: "json",
