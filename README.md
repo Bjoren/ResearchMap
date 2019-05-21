@@ -106,6 +106,11 @@ Now open a web browser, the application should be accessible at:
 ## For Developers
 
 ### Additional Resources:
+
+[Leaflet](https://leafletjs.com/) - (Used for the interactive map)
+
+[Express](https://expressjs.com/) - (Used for the web-API)
+
 Postman collection can be found here:
 
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/d7d309a9f5c17da5edc0)
