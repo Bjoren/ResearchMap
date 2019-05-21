@@ -21,11 +21,13 @@ this.submitReport = function() {
 	"x": userReportMarker.getLatLng().lat,
 	"y": userReportMarker.getLatLng().lng,
 	"reporter": "Web-client" //TODO: Get this from Auth API.
-	}, function(resp){
-		console.log(resp);
-		//TODO: Remove usermarker, render new marker from POST response without making new GET or refreshing
-	}, function(resp) {
-		alert(JSON.stringify(resp.responseJSON.error));
+	}, function(response){
+		var marker = L.marker([response.x, response.y], createIcon(response.reward)).bindPopup(createPopupText(response));
+
+		userReportMarker.removeFrom(map);
+		marker.addTo(map);
+	}, function(response) {
+		alert(JSON.stringify(response.responseJSON.error));
 	})
 }
 
