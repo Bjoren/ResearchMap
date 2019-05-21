@@ -13,7 +13,7 @@ exports.validateReport = function(report) {
 }
 
 var isWithinBounds = function(x, y) {
-	return(x > CONFIG.map.boundaryLatMin && x < CONFIG.map.boundaryLatMax && y > CONFIG.map.boundaryLngMin && y < CONFIG.map.boundaryLngMax);
+	return(x > CONFIG.map.boundaryMin[0] && x < CONFIG.map.boundaryMax[0] && y > CONFIG.map.boundaryMin[1] && y < CONFIG.map.boundaryMax[1]);
 }
 
 exports.getOutdatedReports = function(reports) {
