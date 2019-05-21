@@ -33,9 +33,7 @@ I've excluded everything but the "map" object for now, since we are only concern
 
 Brief explanation of each property and what it does:
 
-`accessToken`
-
-***String***
+`accessToken: String`
 
 Your MapBox access token. I recommend registering a new *public* token, separate from your default public token.
 End-users will have access to this token, so make sure it's not a private token (private start with `sk.`, public starts with `pk.`)
@@ -44,26 +42,23 @@ For additional security, you could set up a [URL-restriction](https://docs.mapbo
 
 **You must have a valid token set up**, or the map will not render any tiles.
 
-`startingPointZoomLevel`
-
-***Integer***
+`startingPointZoomLevel: Integer`
 
 The level of zoom the map starts out with.
 At zoom level 0 you see the whole world, at zoom level 16 you could see a small road.
 I've found that zoom level 15 is a good starting point, providing good overview.
 
-`startingPoint`
-
-***[Latitude, Longitude] - Floating point number pair***
+`startingPoint: [Latitude, Longitude]`
 
 [Latitude and Longitude](https://www.latlong.net/) coordinates to the center of the area the map starts out at when the site is refreshed.
-If you are unfamiliar with latitude and longitude, think of them as the X and Y values of any coordinate system (like a graph) respectively.
+If you are unfamiliar with latitude and longitude, think of them as floating point X and Y values of a coordinate system.
 
-`boundaryMin` and `boundaryMax`
+```
+boundaryMin: [Latitude, Longitude],
+boundaryMax: [Latitude, Longitude]
+```
 
-***[Latitude, Longitude] - Floating point number pairs***
-
-***Lower left*** and ***top right*** corners of a rectangle that defines the boundary in which the user is allowed to register Pokéstops and by extension, report field research.
+*Lower left* and *top right* corners of a rectangle that defines the boundary in which the user is allowed to register Pokéstops and by extension, report field research.
 This is to limit use of the map to your local community so it doesn't scale out of hand.
 
 
