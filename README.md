@@ -9,11 +9,11 @@ In order to deploy and run the ResearchMap web application, you must have:
 
 ## How to Deploy
 
+Start by cloning [the git repo](https://github.com/Bjoren/ResearchMap.git). The development branch is likely more up to date, but might not be stable at all times.
+
 ### Configuring Application
 
-Clone the git repo. The development branch is likely more up to date, but might not be stable at all times.
-
-You may configure the application by editing the ´config.json´ file.
+You must configure the application by editing the ´config.json´ file before you may run it.
 The contents of the file will look something like this:
 ```
 {
@@ -31,7 +31,7 @@ The contents of the file will look something like this:
 
 I've excluded everything but the "map" object for now, since we are only concerned with that.
 
-Brief explanation of each property and what it does:
+Here is a brief explanation of each configurable property and what it does:
 
 `accessToken: String`
 
