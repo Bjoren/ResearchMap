@@ -39,11 +39,11 @@ Brief explanation of each property and what it does:
 `accessToken`
 
 Your MapBox access token. I recommend registering a new *public* token, separate from your default public token.
-End-users will have access to this token, so make sure it's not a private token (private start with sk.*, public starts with pk.*)
+End-users will have access to this token, so make sure it's not a private token (private start with `sk.`, public starts with `pk.`)
 Additionally, make sure you have set it to grant only read rights.
 For additional security, you could set up a [URL-restriction](https://docs.mapbox.com/help/how-mapbox-works/access-tokens/#using-url-restrictions).
 
-**You must** have a valid token set up, or the map will not render any tiles.**
+**You must have a valid token set up**, or the map will not render any tiles.
 
 `startingPointZoomLevel`
 
