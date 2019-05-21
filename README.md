@@ -94,6 +94,7 @@ npm start
 
 Now open a web browser, the application should be accessible at:
 >localhost:<WEB_PORT>/index.html
+
 (Web port is 8080 by default)
 
 ## For Developers
