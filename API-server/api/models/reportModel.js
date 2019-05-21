@@ -16,7 +16,7 @@ exports.getOutdatedReports = function(reports) {
 	var outdatedReports = [];
 	todaysDate = utils.formatDate(new Date());
 	for (var i = reports.length - 1; i >= 0; i--) {
-		if(formatDate(new Date(reports[i].date)) != todaysDate){
+		if(utils.formatDate(new Date(reports[i].date)) != todaysDate){
 			outdatedReports.push(reports[i]._id);
 		}
 	}

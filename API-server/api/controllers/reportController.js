@@ -2,13 +2,11 @@
 'use strict';
 
 var reportModel = require('../models/reportModel');
-var database = require('diskdb');
-database.connect('./API-server/database', ['reports']);
 
 var reportCache = null;
 
 exports.getReport = function(request, response) {
-	var databaseResponse = database.reports.findOne({_id: request.params.reportId});
+	var databaseResponse = DATABASE.reports.findOne({_id: request.params.reportId});
 
 	if(!databaseResponse) {
 		response.status(404).json("Could not find report with id: " + request.params.reportId).send();
@@ -19,15 +17,15 @@ exports.getReport = function(request, response) {
 
 exports.getReports = function(request, response) {
 	if(reportCache === null){
-		var databaseResponse = database.reports.find({});
+		var databaseResponse = DATABASE.reports.find({});
 		var outdatedReports = reportModel.getOutdatedReports(databaseResponse);
 		
 		if(outdatedReports != null) {
 			for (var i = outdatedReports.length - 1; i >= 0; i--) {
 				console.log(outdatedReports[i]);
-				database.reports.remove({_id: outdatedReports[i]});
+				DATABASE.reports.remove({_id: outdatedReports[i]});
 			}
-			databaseResponse = database.reports.find({});
+			databaseResponse = DATABASE.reports.find({});
 		}
 		reportCache = databaseResponse;
 		response.json(databaseResponse);
@@ -41,7 +39,7 @@ exports.postReport = function(request, response) {
 	var validatedReport = reportModel.validateReport(request.body);
 
 	if(!validatedReport.error) {
-		var databaseResponse = database.reports.save(validatedReport);
+		var databaseResponse = DATABASE.reports.save(validatedReport);
 		response.json(databaseResponse);
 		flushCache();
 	} else {
@@ -51,7 +49,7 @@ exports.postReport = function(request, response) {
 };
 
 exports.deleteReport = function(request, response) {
-	var databaseResponse = database.reports.remove({_id: request.params.id});
+	var databaseResponse = DATABASE.reports.remove({_id: request.params.id});
 	response.json(databaseResponse);
 
 	flushCache();
