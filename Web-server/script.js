@@ -11,8 +11,6 @@ this.onRightClick = function(event){
 
 	userReportMarker.addTo(map).openPopup();
 
-	map.setView(event.latlng, 20);
-
 	//Handle marker out of bounds
 }
 
@@ -22,7 +20,7 @@ this.submitReport = function() {
 	"reward": document.getElementById("reportWindow").elements["reward"].value,
 	"x": userReportMarker.getLatLng().lat,
 	"y": userReportMarker.getLatLng().lng,
-	"reporter": "Cleanstream"
+	"reporter": "Web-client" //TODO: Get this from Auth API.
 	}, function(resp){
 		console.log(resp);
 		//TODO: Remove usermarker, render new marker from POST response without making new GET or refreshing
