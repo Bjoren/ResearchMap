@@ -89,7 +89,7 @@ npm start
 [0] [nodemon] watching: *.*
 [0] [nodemon] starting `node ./API-server/server.js`
 [0] Successfully connected to : ./API-server/database
-[0] API server started on: <API_PORT>
+[0] API server listening on: <API_PORT>
 ```
 
 Now open a web browser, the application should be accessible at:

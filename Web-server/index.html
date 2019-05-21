@@ -10,12 +10,12 @@
 </head>
 
 <body>
-	<form onsubmit="submitReport()" id="reportWindow">
+	<form id="reportWindow">
 		<div id="inputRow">
 			<div class="reportForm"><b>Task</b><br><input type="text" name="task"><br></div>
 			<div class="reportForm"><b>Reward</b><br><input type="text" name="reward"><br></div>
 	  	</div>
-	  <input type="submit" value="Submit" id="submitButton">
+	 	<input type="button" value="Submit" id="submitButton" onclick="submitReport()">
 	</form>
 	<div id="mapid"></div>
 </body>

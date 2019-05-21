@@ -23,7 +23,12 @@ this.submitReport = function() {
 	"x": userReportMarker.getLatLng().lat,
 	"y": userReportMarker.getLatLng().lng,
 	"reporter": "Cleanstream"
-	}, function(resp){console.log(resp);}, function(resp) {console.alert(resp);})
+	}, function(resp){
+		console.log(resp);
+		//TODO: Remove usermarker, render new marker from POST response without making new GET or refreshing
+	}, function(resp) {
+		alert(JSON.stringify(resp.responseJSON.error));
+	})
 }
 
 //Map methods -----------------------------------------------

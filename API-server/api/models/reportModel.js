@@ -6,8 +6,8 @@ exports.validateReport = function(report) {
 	if(!report.task) { return createError("Missing required field 'task'")}; //TODO: Max length? Compare to list of known tasks?
 	if(!report.reward) { return createError("Missing required field 'reward'")};
 	if(!report.reporter) { return createError("Missing required field 'reporter'")}; //TODO: This should recieve a token or something and validate towards Discord's OAuth
-	if(!report.x) { return createError("Missing x coordinate")}; //TODO: Restrict to max values defined in config
-	if(!report.y) { return createError("Missing y coordinate")};
+	if(!report.x) { return createError("Missing latitude coordinate")}; //TODO: Restrict to max values defined in config
+	if(!report.y) { return createError("Missing longitude coordinate")};
 
 	return filterReport(report);
 }
@@ -28,7 +28,7 @@ exports.getOutdatedReports = function(reports) {
 }
 
 createError = function(errorMessage) {
-	return {"error" : "Validation error: " + errorMessage};
+	return {"error" : errorMessage};
 }
 
 //Filters out unwanted attributes so no garbage data reaches database

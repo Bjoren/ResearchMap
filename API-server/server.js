@@ -13,4 +13,4 @@ routes(app); //register the route
 
 app.listen(port);
 
-console.log('API server started on: ' + port);
+console.log('API server listening on: ' + port);

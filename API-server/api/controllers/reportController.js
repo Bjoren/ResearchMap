@@ -35,13 +35,13 @@ exports.postReport = function(request, response) {
 	var validatedReport = reportModel.validateReport(request.body);
 
 	if(!validatedReport.error) {
-		var databaseResponse = database.reports.save(validatedReport); //TODO: nodemon config to ignore DB updates, constant restarts!
+		var databaseResponse = database.reports.save(validatedReport);
 		response.json(databaseResponse);
+		flushCache();
 	} else {
-		response.json(validatedReport);
+		console.error(validatedReport.error);
+		response.status(400).json(validatedReport).send();
 	}
-
-	flushCache();
 };
 
 exports.deleteReport = function(request, response) {
