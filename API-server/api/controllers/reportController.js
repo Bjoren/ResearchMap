@@ -1,4 +1,5 @@
 'use strict';
+'use strict';
 
 var reportModel = require('../models/reportModel');
 var database = require('diskdb');
@@ -8,7 +9,12 @@ var reportCache = null;
 
 exports.getReport = function(request, response) {
 	var databaseResponse = database.reports.findOne({_id: request.params.reportId});
-	response.json(databaseResponse);
+
+	if(!databaseResponse) {
+		response.status(404).json("Could not find report with id: " + request.params.reportId).send();
+	} else {
+		response.json(databaseResponse);
+	}
 };
 
 exports.getReports = function(request, response) {
@@ -45,7 +51,7 @@ exports.postReport = function(request, response) {
 };
 
 exports.deleteReport = function(request, response) {
-	var databaseResponse = database.reports.remove({_id: request.params.reportId});
+	var databaseResponse = database.reports.remove({_id: request.params.id});
 	response.json(databaseResponse);
 
 	flushCache();
