@@ -8,7 +8,7 @@ exports.validatePokestop = function(pokestop) {
 	if(!pokestop.lng) { return utils.createError("Missing required attribute 'lng'")};
 
 	if(!isWithinBounds(pokestop.lat, pokestop.lng)) {
-		var map = utils.getConfig().map;
+		var map = CONFIG.map;
 		var errorData = {
 			"pokestop": [pokestop.lat, pokestop.lng],
 			"boundary": {
@@ -23,7 +23,7 @@ exports.validatePokestop = function(pokestop) {
 }
 
 var isWithinBounds = function(lat, lng) {
-	var map = utils.getConfig().map;
+	var map = CONFIG.map;
 	return(lat > map.boundaryMin[0] && lat < map.boundaryMax[0] && lng > map.boundaryMin[1] && lng < map.boundaryMax[1]);
 }
 
