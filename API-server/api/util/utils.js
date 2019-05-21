@@ -1,6 +1,6 @@
 var CONFIG = require('../../../config.json');
 
-exports.getConfig = function() {
+exports.getConfig = function() { //Deprecated! Use global CONFIG object instead.
 	return CONFIG;
 }
 
