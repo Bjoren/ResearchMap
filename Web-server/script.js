@@ -34,11 +34,17 @@ this.submitReport = function() {
 //Map methods -----------------------------------------------
 
 this.setUpMap = function(CONFIG) {
-    map = L.map('mapid').setView([CONFIG.startingPointLat, CONFIG.startingPointLng], CONFIG.startingPointZoomLevel);
+	var boundaries = [CONFIG.boundaryMin, CONFIG.boundaryMax];
+
+	map = L.map('mapid').setMaxBounds(boundaries)
+    .setView(CONFIG.startingPoint, CONFIG.startingPointZoomLevel);
+
+    L.rectangle(boundaries, {color: "#ff7800", weight: 1, interactive: false, fill: false}).addTo(map);
 
     L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-        maxZoom: 18,
+        minZoom: 13, //TODO: Add to config
+        maxBoundsViscosity: 2.0,
         id: 'mapbox.streets',
         accessToken: CONFIG.accessToken
     }).addTo(map);

@@ -18,17 +18,14 @@ The contents of the file will look something like this:
 ```
 {
   ...
-  
+ 
   "map": {
     "accessToken": "pk.access_token_goes_here"
     "startingPointZoomLevel": 15,
-    "startingPointLat": 1.0,
-    "startingPointLng": 1.0,
-    "boundaryLatMin": 0.0,
-    "boundaryLatMax": 2.0,
-    "boundaryLngMin": 0.0,
-    "boundaryLngMax": 2.0,
-   }
+    "startingPoint": [0.5, 0.5],
+    "boundaryMin": [0.0, 0.0],
+    "boundaryMax": [1.1, 1.1],
+  }
 }
 ```
 
@@ -37,6 +34,8 @@ I've excluded everything but the "map" object for now, since we are only concern
 Brief explanation of each property and what it does:
 
 `accessToken`
+
+***String***
 
 Your MapBox access token. I recommend registering a new *public* token, separate from your default public token.
 End-users will have access to this token, so make sure it's not a private token (private start with `sk.`, public starts with `pk.`)
@@ -47,26 +46,38 @@ For additional security, you could set up a [URL-restriction](https://docs.mapbo
 
 `startingPointZoomLevel`
 
+***Integer***
+
 The level of zoom the map starts out with.
 At zoom level 0 you see the whole world, at zoom level 16 you could see a small road.
 I've found that zoom level 15 is a good starting point, providing good overview.
 
-`startingPointLat, startingPointLng`
+`startingPoint`
+
+***[Latitude, Longitude] - Floating point number pair***
 
 [Latitude and Longitude](https://www.latlong.net/) coordinates to the center of the area the map starts out at when the site is refreshed.
 If you are unfamiliar with latitude and longitude, think of them as the X and Y values of any coordinate system (like a graph) respectively.
 
-`boundaryLatitudeMin/Max, boundaryLongitudeMin/Max`
+`boundaryMin` and `boundaryMax`
 
-These values define the area in which the users are allowed to register Pokéstops and by extension, report field research.
+***[Latitude, Longitude] - Floating point number pairs***
+
+***Lower left*** and ***top right*** corners of a rectangle that defines the boundary in which the user is allowed to register Pokéstops and by extension, report field research.
 This is to limit use of the map to your local community so it doesn't scale out of hand.
-Any attempts to register a Pokéstop with a latitude higher than the boundaryLatMax will be rejected, for example.
 
-I recommend that you use a website [such as this](https://www.latlong.net/) to find accurate values.
+
+Any attempts to register a Pokéstop outside of this boundary will be rejected by the API-server and the map will automatically pan back to the boundary when the user pans out of bounds.
+
+
+The boundary is represented on the map as a red rectangle.
+
+
+You can use a website [such as this](https://www.latlong.net/) to find your coordinates.
 
 ### Starting the Application
 
-To start the application, you simply run these commands from your prefered CLI:
+To start the application, run these commands from your prefered CLI in the repositorys root folder:
 
 `npm install` (The first time only)
 
