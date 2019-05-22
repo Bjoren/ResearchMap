@@ -59,23 +59,6 @@ this.createPokestopPopup = function(pokestop) {
 		"<br><br>Reported by " + pokestop.reporter + ".";
 }
 
-this.setUpPokestops = function(pokestops) {
-	pokestopList = pokestops;
-
-	pokestops.forEach(pokestop =>{
-		var marker = new pokestopMarker([pokestop.lat, pokestop.lng], {"icon": pokestopIcon, "_id": pokestop._id})
-		.bindPopup(createPokestopPopup(pokestop));
-
-		marker.addTo(map);
-	});
-}
-
-//Main flow-------------------------------------------------
-
-var userReportMarker;
-var pokestopList;
-var map;
-
 var pokestopMarker = L.Marker.extend({
 	options: { 
 	   _id: ""
@@ -97,6 +80,43 @@ var newPokestopIcon = new L.Icon({
 	popupAnchor: [0, -50],
 	shadowSize: [25, 45]
 });
+
+this.setUpPokestops = function(pokestops) {
+	pokestopList = pokestops;
+
+	pokestops.forEach(pokestop =>{
+		var marker = new pokestopMarker([pokestop.lat, pokestop.lng], {"icon": pokestopIcon, "opacity": 0.4, "_id": pokestop._id})
+		.bindPopup(createPokestopPopup(pokestop));
+
+		marker.on('mouseover', function (e) {
+            this.setOpacity(1.0);
+        });
+        marker.on('mouseout', function (e) {
+			this.setOpacity(0.3);
+        });
+		marker.on('popupopen', function (e) {
+			this.setOpacity(1.0);
+			this.on('mouseout', function (e) { //Disable mouseout opacity event while popup is opened
+				this.setOpacity(1.0);
+			});
+		});
+		marker.on('popupclose', function (e) {
+			this.setOpacity(0.3);
+			this.on('mouseout', function (e) { //Enable mouseout opacity event when popup is closed
+				this.setOpacity(0.3);
+			});
+		});
+
+		marker.addTo(map);
+	});
+}
+
+//Main flow-------------------------------------------------
+
+var userReportMarker;
+var pokestopList;
+var map;
+
 
 getConfig(function(resp) {setUpMap(resp)}, function() { alert(resp); });
 getPokestops(function(resp) {setUpPokestops(resp)}, function() { alert('Connection failed to reports API'); });
