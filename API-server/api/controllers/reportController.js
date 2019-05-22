@@ -56,6 +56,6 @@ exports.deleteReport = function(request, response) {
 };
 
 var flushCache = function() {
-	console.log("Flushing report cache");
+	console.log("Emptying report cache");
 	reportCache = null;
 }

@@ -42,10 +42,10 @@ exports.deletePokestop = function(request, response) {
 	var databaseResponse = DATABASE.pokestops.remove({_id: request.params.pokestopId});
 	response.json(databaseResponse);
 
-	flushCache();
+	emptyCache();
 };
 
-var flushCache = function() {
-	console.log("Flushing Pokéstop cache");
+var emptyCache = function() {
+	console.log("Emptying Pokéstop cache");
 	pokestopCache = null;
 }
