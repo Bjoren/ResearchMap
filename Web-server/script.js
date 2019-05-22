@@ -46,7 +46,8 @@ this.setUpMap = function(CONFIG) {
         minZoom: 13, //TODO: Add to config
         maxBoundsViscosity: 2.0,
         id: 'mapbox.streets',
-        accessToken: CONFIG.accessToken
+		accessToken: CONFIG.accessToken,
+		bounds: boundaries
     }).addTo(map);
 
     map.on('contextmenu', onRightClick);
