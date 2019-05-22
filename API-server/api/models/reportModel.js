@@ -1,13 +1,15 @@
 var utils = require('../util/utils.js');
+const REQUIRED_FIELDS = ["reporter","pokestopId","task","reward"];
 
 exports.validateReport = function(report) {
 
-	if(!report.reporter) { return utils.createError("Missing required field 'reporter'")};
-	if(!report.pokestopId) { return utils.createError("Missing required field 'pokestopId'")}; //TODO: Max length? Compare to list of known tasks?
-	if(!report.taskId) { return utils.createError("Missing required field 'taskId'")};
+	var missingFields = utils.validateMissingFields(report, REQUIRED_FIELDS);
 
+	if(missingFields) { 
+		return utils.createError("Missing required field(s): " + JSON.stringify(missingFields))
+	};
 	//Verify pokestop exists in DB
-	//Verify task exists in DB
+	//Verify task exists in DB & task.task and reward are valid for task
 
 	return filterReport(report);
 }
@@ -28,7 +30,8 @@ filterReport = function(report) {
 	var filteredReport = new Object();
 
 	filteredReport.pokestopId = report.pokestopId;
-	filteredReport.taskId = report.taskId;
+	filteredReport.task = report.task;
+	filteredReport.reward = report.reward;
 	filteredReport.reporter = report.reporter;
 	filteredReport.date = utils.formatDate(new Date());
 

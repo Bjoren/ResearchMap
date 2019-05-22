@@ -3,7 +3,7 @@
 module.exports = function(app) {
     var reportController = require('../controllers/reportController'),
         pokestopController = require('../controllers/pokestopController'),
-        configController = require('../controllers/configController')
+        configController = require('../controllers/configController');
 
     app.use(function(req, res, next) {
         res.header("Access-Control-Allow-Origin", "*");

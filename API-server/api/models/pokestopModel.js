@@ -1,11 +1,13 @@
 var utils = require('../util/utils.js');
+const REQUIRED_FIELDS = ["name","lat","lng","reporter"];
 
 exports.validatePokestop = function(pokestop) {
 
-	if(!pokestop.reporter) { return utils.createError("Missing required attribute 'reporter'")}; //TODO: This should recieve a token or something and validate towards Discord's OAuth
-	if(!pokestop.pokestopName) { return utils.createError("Missing required attribute 'pokestopName'")};
-	if(!pokestop.lat) { return utils.createError("Missing required attribute 'lat'")}; //TODO: Restrict to max values defined in config
-	if(!pokestop.lng) { return utils.createError("Missing required attribute 'lng'")};
+	var missingFields = utils.validateMissingFields(pokestop, REQUIRED_FIELDS);
+
+	if(missingFields) { 
+		return utils.createError("Missing required field(s): " + JSON.stringify(missingFields))
+	};
 
 	if(!isWithinBounds(pokestop.lat, pokestop.lng)) {
 		var map = CONFIG.map;
@@ -31,7 +33,7 @@ var isWithinBounds = function(lat, lng) {
 filterPokestop = function(pokestop) {
 	var filteredPokestop = new Object();
 
-	filteredPokestop.pokestopName = pokestop.pokestopName;
+	filteredPokestop.name = pokestop.name;
 	filteredPokestop.lat = pokestop.lat;
 	filteredPokestop.lng = pokestop.lng;
 	filteredPokestop.reporter = pokestop.reporter;

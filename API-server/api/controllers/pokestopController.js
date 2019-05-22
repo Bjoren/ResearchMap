@@ -5,14 +5,19 @@ var pokestopModel = require('../models/pokestopModel');
 var pokestopCache = null;
 
 exports.getPokestop = function(request, response) {
-	var databaseResponse = DATABASE.pokestops.findOne({_id: request.params.pokestopId});
+	var pokestop = DATABASE.pokestops.findOne({_id: request.params.pokestopId});
 	
-	if(!databaseResponse) {
+	if(!pokestop) {
 		response.status(404).json("Could not find Pokéstop with id: " + request.params.pokestopId).send();
 	} else {
-		response.json(databaseResponse);
+		var attachedReport = getAttachedReport(request.params.pokestopId);
+		if(attachedReport){
+			pokestop.researchReport = attachedReport;
+		}
+		response.json(pokestop);
 	}
 };
+
 
 exports.getPokestops = function(request, response) {
 	if(pokestopCache === null){
@@ -27,11 +32,11 @@ exports.getPokestops = function(request, response) {
 
 exports.postPokestop = function(request, response) {
 	var validatedPokestop = pokestopModel.validatePokestop(request.body);
-
+	
 	if(!validatedPokestop.error) {
 		var databaseResponse = DATABASE.pokestops.save(validatedPokestop);
 		response.json(databaseResponse);
-		flushCache();
+		emptyCache();
 	} else {
 		console.error(validatedPokestop.error);
 		response.status(400).json(validatedPokestop).send();
@@ -39,11 +44,18 @@ exports.postPokestop = function(request, response) {
 };
 
 exports.deletePokestop = function(request, response) {
-	var databaseResponse = DATABASE.pokestops.remove({_id: request.params.pokestopId});
-	response.json(databaseResponse);
-
+	DATABASE.pokestops.remove({_id: request.params.pokestopId});
+	
 	emptyCache();
 };
+
+var getAttachedReport = function (pokestopId) {
+	var attachedReport = DATABASE.reports.findOne({pokestopId: pokestopId});
+	if(attachedReport) {
+		return attachedReport;
+	}
+	return "";
+}
 
 var emptyCache = function() {
 	console.log("Emptying Pokéstop cache");
