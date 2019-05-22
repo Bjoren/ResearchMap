@@ -7,22 +7,21 @@ this.onRightClick = function(event){
 
 	console.log(event);
 	
-	userReportMarker = L.marker(event.latlng, {"draggable": true}).bindPopup("Report here?").openPopup();
+	userReportMarker = L.marker(event.latlng, {"draggable": true, "icon": newPokestopIcon}).bindPopup("Report here?").openPopup();
 
 	userReportMarker.addTo(map).openPopup();
 
 	//Handle marker out of bounds
 }
 
-this.submitReport = function() {
-	postReport({
-	"task": document.getElementById("reportWindow").elements["task"].value,
-	"reward": document.getElementById("reportWindow").elements["reward"].value,
-	"x": userReportMarker.getLatLng().lat,
-	"y": userReportMarker.getLatLng().lng,
+this.submitPokestop = function() {
+	postPokestop({
+	"name": document.getElementById("pokestopForm").elements["name"].value,
+	"lat": userReportMarker.getLatLng().lat,
+	"lng": userReportMarker.getLatLng().lng,
 	"reporter": "Web-client" //TODO: Get this from Auth API.
 	}, function(response){
-		var marker = L.marker([response.x, response.y], createIcon(response.reward)).bindPopup(createPopupText(response));
+		var marker = new pokestopMarker([response.lat, response.lng], {"icon": pokestopIcon, "_id": response._id}).bindPopup(createPokestopPopup(response));
 
 		userReportMarker.removeFrom(map);
 		marker.addTo(map);
@@ -53,41 +52,51 @@ this.setUpMap = function(CONFIG) {
     map.on('contextmenu', onRightClick);
 }
 
-this.createPopupText = function(report) {
-	return "<b>Task: </b>" + report.task + 
-		"<br><b>Reward: </b>" + report.reward +
-		"<br><br>Reported by " + report.reporter + ".";
+this.createPokestopPopup = function(pokestop) {
+	return "<b>Name: </b>" + pokestop.name +
+		/*"<br><b>Task: </b>" + pokestop.research.task +
+		"<br><b>Reward: </b>" + pokestop.research.reward +*/
+		"<br><br>Reported by " + pokestop.reporter + ".";
 }
 
-this.createIcon = function(reward) {
-	var iconUrl = getIconUrl(reward);
+this.setUpPokestops = function(pokestops) {
+	pokestopList = pokestops;
 
-	if(iconUrl != null) {
-		var rewardIcon = L.icon({
-		    iconUrl: iconUrl,
-		    iconSize: [80, 80],
-		    popupAnchor: [-0, -15]
-		});
-		return {icon: rewardIcon};
-	}
-}
-
-this.setUpReports = function(reports) {
-	reportsList = reports;
-
-	for (var i = reports.length - 1; i >= 0; i--) {
-		var marker = L.marker([reports[i].x, reports[i].y], createIcon(reports[i].reward))
-		.bindPopup(createPopupText(reports[i]));
+	pokestops.forEach(pokestop =>{
+		var marker = new pokestopMarker([pokestop.lat, pokestop.lng], {"icon": pokestopIcon, "_id": pokestop._id})
+		.bindPopup(createPokestopPopup(pokestop));
 
 		marker.addTo(map);
-	}
+	});
 }
 
 //Main flow-------------------------------------------------
 
 var userReportMarker;
-var reportsList;
+var pokestopList;
 var map;
 
+var pokestopMarker = L.Marker.extend({
+	options: { 
+	   _id: ""
+	}
+ });
+
+var pokestopIcon = new L.Icon({
+	iconUrl: "/icons/pokestop.svg", //Replace with something appropriate
+	iconSize: [50, 50],
+	iconAnchor: [25, 50],
+	popupAnchor: [0, -50],
+	shadowSize: [25, 45]
+});
+
+var newPokestopIcon = new L.Icon({
+	iconUrl: "/icons/pokestopNew.svg", //Replace with something appropriate
+	iconSize: [50, 50],
+	iconAnchor: [25, 50],
+	popupAnchor: [0, -50],
+	shadowSize: [25, 45]
+});
+
 getConfig(function(resp) {setUpMap(resp)}, function() { alert(resp); });
-getReports(function(resp) {setUpReports(resp)}, function() { alert('Connection failed to reports API'); });
+getPokestops(function(resp) {setUpPokestops(resp)}, function() { alert('Connection failed to reports API'); });
