@@ -5,12 +5,12 @@ var reportModel = require('../models/reportModel');
 var reportCache = null;
 
 exports.getReport = function(request, response) {
-	var databaseResponse = DATABASE.reports.findOne({_id: request.params.reportId});
+	var report = DATABASE.reports.findOne({_id: request.params.reportId});
 
-	if(!databaseResponse) {
+	if(!report) {
 		response.status(404).json("Could not find report with id: " + request.params.reportId).send();
 	} else {
-		response.json(databaseResponse);
+		response.json(report);
 	}
 };
 
@@ -40,20 +40,27 @@ exports.postReport = function(request, response) {
 
 	if(!validatedReport.error) {
 		DATABASE.reports.save(validatedReport);
-		flushCache();
+		emptyCache();
+		response.json(validatedReport);
 	} else {
 		console.error(validatedReport.error);
-		response.status(400).json(validatedReport).send();
+		response.status(400).json(validatedReport);
 	}
 };
 
 exports.deleteReport = function(request, response) {
-	DATABASE.reports.remove({_id: request.params.reportId});
+	var getReportResponse = DATABASE.reports.findOne({_id: request.params.reportId});
 
-	flushCache();
+	if(!getReportResponse) {
+		response.status(404).json("Could not find report with id: " + request.params.reportId).send();
+	}
+
+	DATABASE.reports.remove({_id: request.params.reportId});
+	emptyCache();
+	response.send();
 };
 
-var flushCache = function() {
+var emptyCache = function() {
 	console.log("Emptying report cache");
 	reportCache = null;
 }

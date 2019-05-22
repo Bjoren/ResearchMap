@@ -11,9 +11,11 @@ exports.getPokestop = function(request, response) {
 		response.status(404).json("Could not find Pokéstop with id: " + request.params.pokestopId).send();
 	} else {
 		var attachedReport = getAttachedReport(request.params.pokestopId);
+
 		if(attachedReport){
 			pokestop.researchReport = attachedReport;
 		}
+
 		response.json(pokestop);
 	}
 };
@@ -35,18 +37,24 @@ exports.postPokestop = function(request, response) {
 	
 	if(!validatedPokestop.error) {
 		var databaseResponse = DATABASE.pokestops.save(validatedPokestop);
-		response.json(databaseResponse);
 		emptyCache();
+		response.json(databaseResponse);
 	} else {
 		console.error(validatedPokestop.error);
-		response.status(400).json(validatedPokestop).send();
+		response.status(400).json(validatedPokestop);
 	}
 };
 
 exports.deletePokestop = function(request, response) {
-	DATABASE.pokestops.remove({_id: request.params.pokestopId});
+	var getPokestopResponse = DATABASE.pokestops.findOne({_id: request.params.pokestopId});
 	
+	if(!getPokestopResponse) {
+		response.status(404).json("Could not find Pokéstop with id: " + request.params.pokestopId).send();
+	}
+
+	DATABASE.pokestops.remove({_id: request.params.pokestopId});
 	emptyCache();
+	response.send();
 };
 
 var getAttachedReport = function (pokestopId) {
