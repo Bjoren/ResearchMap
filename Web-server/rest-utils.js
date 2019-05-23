@@ -1,7 +1,7 @@
 'use strict';
 
-var API_PORT = 3000; //TODO: Remove hardcoded port
-var API_URL = 'http://' + window.location.hostname + ':' + API_PORT;
+const API_PORT = 3000; //TODO: Remove hardcoded port
+const API_URL = 'http://' + window.location.hostname + ':' + API_PORT;
 
 this.getConfig = function(successCallback, errorCallback) {
 	$.ajax ({
