@@ -111,6 +111,8 @@ this.setOnClickOpacityEvents = function(marker) { //Popup small should not open 
 	marker.on('popupclose', function (e) {
 		this.setOpacity(0.3);
         setHoverOverOpacityEvents(this);
-        selectedMarker = null;
+        if(selectedMarker === marker.options._id) {
+            selectedMarker = null;
+        }
     });
 }
