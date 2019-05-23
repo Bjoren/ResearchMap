@@ -10,8 +10,16 @@ getPokestops(function(resp) {setUpPokestops(resp)}, function() { alert('Connecti
 this.onRightClick = function(event){
 	if(userReportMarker != null) { map.removeLayer(userReportMarker); } //Remove old marker
 	
-	userReportMarker = L.marker(event.latlng, {"draggable": true, "icon": newPokestopIcon}).bindPopup("New Pokéstop:");
+	userReportMarker = L.marker(event.latlng, {"draggable": true, "icon": newPokestopIcon, "autoPan": true})
+		.bindPopup("New Pokéstop")
+		.on('dragend', function (e) {
+			this.openPopup();
+		});
 	userReportMarker.addTo(map).openPopup();
+}
+
+this.onLeftClick = function(event) {
+	if(userReportMarker != null) { map.removeLayer(userReportMarker); }
 }
 
 this.submitPokestop = function() {

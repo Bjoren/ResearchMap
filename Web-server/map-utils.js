@@ -19,7 +19,8 @@ this.setUpMap = function(CONFIG) {
 		bounds: boundaries
     }).addTo(map);
 
-    map.on('contextmenu', onRightClick);
+    map.on('contextmenu', onRightClick)
+    .on('click', onLeftClick);
 }
 
 this.createPokestopPopup = function(pokestop) {
