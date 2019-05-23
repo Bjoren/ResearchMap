@@ -43,10 +43,9 @@ this.setUpMap = function() {
     L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
         minZoom: 13, //TODO: Add to config
-        maxBoundsViscosity: 2.0,
         id: 'mapbox.streets',
 		accessToken: CONFIG.accessToken,
-		bounds: boundaries
+		bounds: boundaries,
     }).addTo(map);
     
     map.on('contextmenu', onRightClick)
@@ -62,7 +61,7 @@ this.setUpPokestops = function(pokestops) {
 }
 
 this.createPokestopPopupText = function(pokestop) {
-    return `<b>${pokestop.name}</b>
+    return `<h1>${pokestop.name}</h1>
     <br><br>Reported by ${pokestop.reporter}`;
     
     //TODO: Add task if existant, otherwise report task form
@@ -101,7 +100,7 @@ this.setHoverOverOpacityEvents = function(marker) {
         }
 	});
 	marker.on('mouseout', function (e) {
-        if(selectedMarker != marker.options._id) {
+        if(selectedMarker != this) {
             this.setOpacity(0.3);
         }
         this.namePopup.removeFrom(map);
@@ -111,12 +110,12 @@ this.setHoverOverOpacityEvents = function(marker) {
 this.setOnClickOpacityEvents = function(marker) {
 	marker.on('popupopen', function (e) {
         this.setOpacity(1.0);
-        selectedMarker = marker.options._id;
+        selectedMarker = this;
     });
     
 	marker.on('popupclose', function (e) {
 		this.setOpacity(0.3);
-        if(selectedMarker === marker.options._id) {
+        if(selectedMarker === this) {
             selectedMarker = null;
         }
     });

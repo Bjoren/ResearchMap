@@ -11,7 +11,8 @@ getPokestops(function(resp) {setUpPokestops(resp)}, function() { alert('Connecti
 
 this.onRightClick = function(event){
 	if(userInputMarker != null) { map.removeLayer(userInputMarker); } //Remove old marker
-	
+	if(selectedMarker != null) { selectedMarker.closePopup(); }
+
 	if(isInBounds(event.latlng)){
 		userInputMarker = L.marker(event.latlng, {"draggable": true, "icon": newPokestopIcon, "autoPan": true, "zIndexOffset": 1000})
 			.bindPopup(document.getElementById("pokestopForm").cloneNode(true),{"closeButton": false, "autoClose": false})
