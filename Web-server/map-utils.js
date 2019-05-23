@@ -86,10 +86,9 @@ this.setHoverOverOpacityEvents = function(marker) {
 	});
 	marker.on('mouseout', function (e) {
         this.setOpacity(0.3);
-        this.closePopup();
         this.namePopup.removeFrom(map);
 	});
-	marker.on('click', function (e) {
+	marker.on('popupopen', function (e) {
 		this.setOpacity(1.0);
 		this.on('mouseout', function (e) { //Disable mouseout opacity event while popup is opened
 			this.setOpacity(1.0);
