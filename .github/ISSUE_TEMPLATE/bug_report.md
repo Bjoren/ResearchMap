@@ -7,25 +7,26 @@ assignees: ''
 
 ---
 
-**Describe the bug**
+### Describe the bug
 A clear and concise description of what the bug is.
 
-**To Reproduce**
-Steps to reproduce the behavior:
-1. Go to '...'
-2. Click on '....'
-4. See error
+### To Reproduce
+**Steps to reproduce the behavior:**
+**1.** Go to '...'
+**2.** Click on '....'
+**3.** Profit!
 
-**Expected behavior**
+### Expected behavior
 A clear and concise description of what you expected to happen.
 
-**Screenshots**
+### Screenshots
 If applicable, add screenshots to help explain your problem.
 
-**Platform(please complete the following information):**
- - Device: [Desktop, Android, iPhone]
- - OS: [e.g. Windows 10, iOS]
- - Browser [e.g. chrome, safari]
+### Platform
+ **- ResearchMap version:** Which branch or release of ResearchMap does the bug appear on?
+ **- Device:** [Desktop, Android, iPhone]
+ **- OS:** [Windows 10, iOS, Android 8.0]
+ **- Browser:** [Chrome, Safari, Firefox]
 
-**Additional context**
+### Additional context
 Add any other context about the problem here.
