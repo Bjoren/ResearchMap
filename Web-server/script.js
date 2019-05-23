@@ -11,7 +11,7 @@ this.onRightClick = function(event){
 	if(userInputMarker != null) { map.removeLayer(userInputMarker); } //Remove old marker
 	
 	userInputMarker = L.marker(event.latlng, {"draggable": true, "icon": newPokestopIcon, "autoPan": true, "zIndexOffset": 1000})
-		.bindPopup("New Pokéstop")
+		.bindPopup("New Pokéstop", {"closeButton": false})
 		.on('dragend', function (e) {
 			this.openPopup();
 		});

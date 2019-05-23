@@ -66,7 +66,7 @@ this.createPokestopPopupText = function(pokestop) {
 
 this.setUpPokestopMarker = function(pokestop) {
     var marker = new pokestopMarker([pokestop.lat, pokestop.lng],{"icon": pokestopIcon, "opacity": 0.4, "_id": pokestop._id})
-    .bindPopup(createPokestopPopupText(pokestop), {"autoClose": false});
+    .bindPopup(createPokestopPopupText(pokestop), {"autoClose": false, "closeButton": false});
     
     marker.namePopup = L.popup({"offset": [0,-50], "closeButton": false})
     .setContent(`<b>${pokestop.name}<b>`)
@@ -110,7 +110,6 @@ this.setOnClickOpacityEvents = function(marker) { //Popup small should not open 
     
 	marker.on('popupclose', function (e) {
 		this.setOpacity(0.3);
-        setHoverOverOpacityEvents(this);
         if(selectedMarker === marker.options._id) {
             selectedMarker = null;
         }
