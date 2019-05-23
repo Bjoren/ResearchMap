@@ -1,22 +1,30 @@
 'use strict';
 
+
+
 var userInputMarker;
 var pokestopList;
 var map;
 
-getConfig(function(resp) {setUpMap(resp)}, function() { alert(resp); });
+getConfig(function(resp) { initialSetup(resp); }, function() { alert(resp); });
 getPokestops(function(resp) {setUpPokestops(resp)}, function() { alert('Connection failed to reports API'); });
 
 this.onRightClick = function(event){
 	if(userInputMarker != null) { map.removeLayer(userInputMarker); } //Remove old marker
-
-	userInputMarker = L.marker(event.latlng, {"draggable": true, "icon": newPokestopIcon, "autoPan": true, "zIndexOffset": 1000})
-		.bindPopup(document.getElementById("pokestopForm").cloneNode(true),
-		{"closeButton": false, "autoClose": false})
-		.on('dragend', function (e) {
-			this.openPopup();
-		});
-	userInputMarker.addTo(map).openPopup();
+	
+	if(isInBounds(event.latlng)){
+		userInputMarker = L.marker(event.latlng, {"draggable": true, "icon": newPokestopIcon, "autoPan": true, "zIndexOffset": 1000})
+			.bindPopup(document.getElementById("pokestopForm").cloneNode(true),
+			{"closeButton": false, "autoClose": false})
+			.on('dragend', function (e) {
+				if(isInBounds(this.getLatLng())){
+					this.openPopup();
+				} else {
+					this.removeFrom(map);
+				}
+			});
+		userInputMarker.addTo(map).openPopup();
+	}
 }
 
 this.onLeftClick = function(event) {

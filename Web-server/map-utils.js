@@ -22,11 +22,17 @@ var pokestopMarker = L.Marker.extend({
     }
 });
 
+var CONFIG;
 var selectedMarker = null;
 
 //Map -----------------------------------------------
 
-this.setUpMap = function(CONFIG) {
+this.initialSetup = function(config) {
+    CONFIG = config;
+    setUpMap();
+}
+
+this.setUpMap = function() {
     var boundaries = [CONFIG.boundaryMin, CONFIG.boundaryMax];
     
 	map = L.map('mapid').setMaxBounds(boundaries)
@@ -114,4 +120,9 @@ this.setOnClickOpacityEvents = function(marker) { //Popup small should not open 
             selectedMarker = null;
         }
     });
+}
+
+this.isInBounds = function(latLng) {
+    const boundaries = L.latLngBounds([CONFIG.boundaryMin, CONFIG.boundaryMax]);
+    return boundaries.contains(latLng);
 }
