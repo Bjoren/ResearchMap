@@ -14,8 +14,7 @@ this.onRightClick = function(event){
 	
 	if(isInBounds(event.latlng)){
 		userInputMarker = L.marker(event.latlng, {"draggable": true, "icon": newPokestopIcon, "autoPan": true, "zIndexOffset": 1000})
-			.bindPopup(document.getElementById("pokestopForm").cloneNode(true),
-			{"closeButton": false, "autoClose": false})
+			.bindPopup(document.getElementById("pokestopForm").cloneNode(true),{"closeButton": false, "autoClose": false})
 			.on('dragend', function (e) {
 				if(isInBounds(this.getLatLng())){
 					this.openPopup();
