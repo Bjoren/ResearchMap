@@ -90,7 +90,7 @@ this.setPokestopMarkerOpacityEvents = function(marker) {
 this.setHoverOverOpacityEvents = function(marker) {
 	marker.on('mouseover', function (e) {
         this.setOpacity(1.0);
-        if(selectedMarker != marker.options._id) {
+        if(selectedMarker == null) {
             this.namePopup.openOn(map);
         }
 	});
