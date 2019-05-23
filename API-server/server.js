@@ -1,4 +1,9 @@
-var CONFIG = require('../config.json');
+'use strict';
+
+global.CONFIG = require('../config.json');
+global.DATABASE = require('diskdb');	//Probably not best practices to use 'global'
+
+DATABASE.connect('./API-server/database', ['pokestops', 'reports']);
 
 var express = require('express'),
 	app = express(),

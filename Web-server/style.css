@@ -3,7 +3,7 @@
   	height: 100%;
 }
 
-#reportWindow {
+#pokestopForm {
 	height: auto;
 	background-color: orange;
 	margin: 0px;
@@ -23,7 +23,7 @@
 	min-height: 2cm;
 }
 
-.reportForm {
+.formField {
 	height: 3em;
 	padding: 10px;
 	text-align: center;

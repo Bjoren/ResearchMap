@@ -1,3 +1,8 @@
+<!--
+	ResearchMap was created by Björn Renström. Visit the GIT here: https://github.com/Bjoren/ResearchMap/
+	Pokéstop icons supplied for free by Roundicons.com: https://roundicons.com/icon-packs/pokemon-go-filled-outline-icons/
+-->
+
 <html>
 
 <head>
@@ -6,19 +11,19 @@
     <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" crossorigin="">
     </script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script type="text/javascript" src="utilities.js"></script>
+	<script type="text/javascript" src="rest-utils.js"></script>
+	<script type="text/javascript" src="map-utils.js"></script>
+	<script type="text/javascript" src="script.js"></script>
 </head>
 
 <body>
-	<form id="reportWindow">
+	<form id="pokestopForm">
 		<div id="inputRow">
-			<div class="reportForm"><b>Task</b><br><input type="text" name="task"><br></div>
-			<div class="reportForm"><b>Reward</b><br><input type="text" name="reward"><br></div>
+			<div class="formField"><b>Pokéstop name</b><br><input type="text" name="name"><br></div>
 	  	</div>
-	 	<input type="button" value="Submit" id="submitButton" onclick="submitReport()">
+	 	<input type="button" value="Submit" id="submitButton" onclick="submitPokestop()">
 	</form>
 	<div id="mapid"></div>
 </body>
  
-<script type="text/javascript" src="script.js"></script>
 </html>
