@@ -21,10 +21,9 @@ this.submitPokestop = function() {
 	"lng": userReportMarker.getLatLng().lng,
 	"reporter": "Web-client" //TODO: Get this from Auth API.
 	}, function(response){
-		var marker = new pokestopMarker([response.lat, response.lng], {"icon": pokestopIcon, "_id": response._id}).bindPopup(createPokestopPopup(response));
-
 		userReportMarker.removeFrom(map);
-		marker.addTo(map);
+		var newPokestopMarker = setUpPokestopMarker(response)
+		newPokestopMarker.openPopup();
 	}, function(response) {
 		alert(JSON.stringify(response.responseJSON.error));
 	})
@@ -85,29 +84,37 @@ this.setUpPokestops = function(pokestops) {
 	pokestopList = pokestops;
 
 	pokestops.forEach(pokestop =>{
-		var marker = new pokestopMarker([pokestop.lat, pokestop.lng], {"icon": pokestopIcon, "opacity": 0.4, "_id": pokestop._id})
-		.bindPopup(createPokestopPopup(pokestop));
+		setUpPokestopMarker(pokestop);
+	});
+}
 
-		marker.on('mouseover', function (e) {
-            this.setOpacity(1.0);
-        });
-        marker.on('mouseout', function (e) {
-			this.setOpacity(0.3);
-        });
-		marker.on('popupopen', function (e) {
+this.setUpPokestopMarker = function(pokestop) {
+	var marker = new pokestopMarker([pokestop.lat, pokestop.lng], {"icon": pokestopIcon, "opacity": 0.4, "_id": pokestop._id})
+	.bindPopup(createPokestopPopup(pokestop));
+
+	setOpacityEvents(marker);
+	marker.addTo(map);
+	return marker;
+}
+
+this.setOpacityEvents = function(marker) {
+	marker.on('mouseover', function (e) {
+		this.setOpacity(1.0);
+	});
+	marker.on('mouseout', function (e) {
+		this.setOpacity(0.3);
+	});
+	marker.on('popupopen', function (e) {
+		this.setOpacity(1.0);
+		this.on('mouseout', function (e) { //Disable mouseout opacity event while popup is opened
 			this.setOpacity(1.0);
-			this.on('mouseout', function (e) { //Disable mouseout opacity event while popup is opened
-				this.setOpacity(1.0);
-			});
 		});
-		marker.on('popupclose', function (e) {
+	});
+	marker.on('popupclose', function (e) {
+		this.setOpacity(0.3);
+		this.on('mouseout', function (e) { //Enable mouseout opacity event when popup is closed
 			this.setOpacity(0.3);
-			this.on('mouseout', function (e) { //Enable mouseout opacity event when popup is closed
-				this.setOpacity(0.3);
-			});
 		});
-
-		marker.addTo(map);
 	});
 }
 
