@@ -111,7 +111,7 @@ Now open a web browser, the application should be accessible at:
 
 [Express](https://expressjs.com/) - (Used for the rest-API)
 
-[disk](DBhttps://www.npmjs.com/package/diskdb#documentation) - (Used for data storage)
+[diskDB](DBhttps://www.npmjs.com/package/diskdb#documentation) - (Used for data storage)
 
 Postman collection can be found here:
 
