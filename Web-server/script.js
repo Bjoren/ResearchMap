@@ -1,6 +1,6 @@
 'use strict';
 
-var userReportMarker;
+var userInputMarker;
 var pokestopList;
 var map;
 
@@ -8,28 +8,28 @@ getConfig(function(resp) {setUpMap(resp)}, function() { alert(resp); });
 getPokestops(function(resp) {setUpPokestops(resp)}, function() { alert('Connection failed to reports API'); });
 
 this.onRightClick = function(event){
-	if(userReportMarker != null) { map.removeLayer(userReportMarker); } //Remove old marker
+	if(userInputMarker != null) { map.removeLayer(userInputMarker); } //Remove old marker
 	
-	userReportMarker = L.marker(event.latlng, {"draggable": true, "icon": newPokestopIcon, "autoPan": true})
+	userInputMarker = L.marker(event.latlng, {"draggable": true, "icon": newPokestopIcon, "autoPan": true})
 		.bindPopup("New Pokéstop")
 		.on('dragend', function (e) {
 			this.openPopup();
 		});
-	userReportMarker.addTo(map).openPopup();
+	userInputMarker.addTo(map).openPopup();
 }
 
 this.onLeftClick = function(event) {
-	if(userReportMarker != null) { map.removeLayer(userReportMarker); }
+	if(userInputMarker != null) { map.removeLayer(userInputMarker); }
 }
 
 this.submitPokestop = function() {
 	postPokestop({
 	"name": document.getElementById("pokestopForm").elements["name"].value,
-	"lat": userReportMarker.getLatLng().lat,
-	"lng": userReportMarker.getLatLng().lng,
+	"lat": userInputMarker.getLatLng().lat,
+	"lng": userInputMarker.getLatLng().lng,
 	"reporter": "Web-client" //TODO: Get this from Auth API.
 	}, function(response){
-		userReportMarker.removeFrom(map);
+		userInputMarker.removeFrom(map);
 		var newPokestopMarker = setUpPokestopMarker(response)
 		newPokestopMarker.openPopup();
 	}, function(response) {
