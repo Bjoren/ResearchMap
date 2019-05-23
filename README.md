@@ -109,7 +109,9 @@ Now open a web browser, the application should be accessible at:
 
 [Leaflet](https://leafletjs.com/) - (Used for the interactive map)
 
-[Express](https://expressjs.com/) - (Used for the web-API)
+[Express](https://expressjs.com/) - (Used for the rest-API)
+
+[disk](DBhttps://www.npmjs.com/package/diskdb#documentation) - (Used for data storage)
 
 Postman collection can be found here:
 
