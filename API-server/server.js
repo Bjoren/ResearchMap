@@ -3,7 +3,7 @@
 global.CONFIG = require('../config.json');
 global.DATABASE = require('diskdb');	//Probably not best practices to use 'global'
 
-DATABASE.connect('./API-server/database', ['pokestops', 'reports']);
+DATABASE.connect('./API-server/database', ['pokestops', 'reports', 'researchTasks']);
 
 var express = require('express'),
 	app = express(),
@@ -14,7 +14,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 var routes = require('./api/routes/apiRoutes'); //importing route
-routes(app); //register the route
+routes(app);
 
 app.listen(port);
 

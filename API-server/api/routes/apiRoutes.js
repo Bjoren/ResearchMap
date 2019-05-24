@@ -12,6 +12,11 @@ module.exports = function(app) {
         next();
     });
 
+    app.use(function(err, req, res, next) {
+        console.log("Test: " + JSON.stringify(err));
+        next();
+    })
+
     app.route('/pokestops')
         .get(pokestopController.getPokestops)
         .post(pokestopController.postPokestop);
@@ -21,12 +26,12 @@ module.exports = function(app) {
         .delete(pokestopController.deletePokestop);
 
     app.route('/researchTasks')
-        .get(researchTaskController.getTasks)
-        .post(researchTaskController.postTask);
+        .get(researchTaskController.getResearchTasks)
+        .post(researchTaskController.postResearchTask);
 
-    app.route('/researchTasks/:taskId')
-        .get(researchTaskController.getTask)
-        .delete(researchTaskController.deleteTask);
+    app.route('/researchTasks/:researchTaskId')
+        .get(researchTaskController.getResearchTask)
+        .delete(researchTaskController.deleteResearchTask);
         
     app.route('/reports')
         .get(reportController.getReports)

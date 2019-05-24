@@ -15,7 +15,7 @@ exports.getResearchTask = function(request, response) {
 };
 
 exports.getResearchTasks = function(request, response) {
-	if(researchTaskCache === null){
+	if(researchTaskCache === null) {
 		var databaseResponse = DATABASE.researchTasks.find({});
 		researchTaskCache = databaseResponse;
 		response.json(databaseResponse);
@@ -26,7 +26,7 @@ exports.getResearchTasks = function(request, response) {
 };
 
 exports.postResearchTask = function(request, response) {
-	var validatedResearchTask = researchTaskModel.validateReseachTask(request.body);
+	var validatedResearchTask = researchTaskModel.validateResearchTask(request.body);
 	
 	if(!validatedResearchTask.error) {
 		var databaseResponse = DATABASE.researchTasks.save(validatedResearchTask);

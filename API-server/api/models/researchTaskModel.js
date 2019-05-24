@@ -1,5 +1,5 @@
 var utils = require('../util/utils.js');
-const REQUIRED_FIELDS = ["task","reward","lng","reporter"];
+const REQUIRED_FIELDS = ["task","reward","reporter"];
 
 exports.validateResearchTask = function(task) {
     var missingFields = utils.validateMissingFields(task, REQUIRED_FIELDS);
