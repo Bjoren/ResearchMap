@@ -1,8 +1,9 @@
 'use strict';
 
 module.exports = function(app) {
-    var reportController = require('../controllers/reportController'),
-        pokestopController = require('../controllers/pokestopController'),
+    var pokestopController = require('../controllers/pokestopController'),
+        researchTaskController = require('../controllers/researchTaskController'),
+        reportController = require('../controllers/reportController'),
         configController = require('../controllers/configController');
 
     app.use(function(req, res, next) {
@@ -19,6 +20,14 @@ module.exports = function(app) {
         .get(pokestopController.getPokestop)
         .delete(pokestopController.deletePokestop);
 
+    app.route('/researchTasks')
+        .get(researchTaskController.getTasks)
+        .post(researchTaskController.postTask);
+
+    app.route('/researchTasks/:taskId')
+        .get(researchTaskController.getTask)
+        .delete(researchTaskController.deleteTask);
+        
     app.route('/reports')
         .get(reportController.getReports)
         .post(reportController.postReport);

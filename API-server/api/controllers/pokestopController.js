@@ -20,14 +20,13 @@ exports.getPokestop = function(request, response) {
 	}
 };
 
-
 exports.getPokestops = function(request, response) {
 	if(pokestopCache === null){
 		var databaseResponse = DATABASE.pokestops.find({});
 		pokestopCache = databaseResponse;
 		response.json(databaseResponse);
 	} else {
-		console.log("Fetching Pokéstops from cache");
+		console.debug("Fetching Pokéstops from cache");
 		response.json(pokestopCache);
 	}
 };
@@ -63,9 +62,9 @@ var getAttachedReport = function (pokestopId) {
 		return attachedReport;
 	}
 	return "";
-}
+};
 
 var emptyCache = function() {
-	console.log("Emptying Pokéstop cache");
+	console.debug("Emptying Pokéstop cache");
 	pokestopCache = null;
-}
+};
