@@ -20,14 +20,42 @@
 	<div id="mapid"></div>
 </body>
 
-<div style="display:none">
-	<form id="pokestopForm">
-		<div id="inputRow">
+<div id="markerPopupContent" style="display:none">
+	<form id="createPokestopForm">
+		<div class="inputRow">
 			<div class="formField"><b>Pokéstop name</b><br>
 				<input type="text" name="name"><br>
 			</div>
 		</div>
 		<input type="button" value="Submit" id="submitButton" onclick="submitPokestop()">
 	</form>
+
+	<form id="editPokestopForm">
+		<div class="inputRow">
+			<div class="formField"><b>Pokéstop name</b><br>
+				<input type="text" name="name"><br>
+			</div>
+		</div>
+		<input type="button" value="Submit" id="submitButton" onclick="">
+	</form>
+
+	<form id="researchReportForm">
+		<h1>${pokestop.name}</h1>
+		<div>
+			<div class="formField"><b>Task</b><br>
+				<input type="text" name="task"><br>
+			</div>
+			<div class="formField"><b>Reward</b><br>
+				<input type="text" name="reward"><br>
+			</div>
+		</div>
+		<input type="button" value="Submit" id="submitButton" onclick="">
+	</form>
+
+	<div id="researchReportDetails">
+		<h1>${pokestop.name}</h1>
+		<b>Task: </b>${pokestop.researchReport.task}<br>
+		<b>reward: </b>${pokestop.researchReport.reward}
+	</div>
 </div>
 </html>

@@ -1,7 +1,5 @@
 'use strict';
 
-
-
 var userInputMarker;
 var pokestopList;
 var map;
@@ -15,7 +13,7 @@ this.onRightClick = function(event){
 
 	if(isInBounds(event.latlng)){
 		userInputMarker = L.marker(event.latlng, {"draggable": true, "icon": newPokestopIcon, "autoPan": true, "zIndexOffset": 1000})
-			.bindPopup(document.getElementById("pokestopForm").cloneNode(true),{"closeButton": false, "autoClose": false})
+			.bindPopup(document.getElementById("createPokestopForm").cloneNode(true),{"closeButton": false, "autoClose": false})
 			.on('dragend', function (e) {
 				if(isInBounds(this.getLatLng())){
 					this.openPopup();
@@ -33,7 +31,7 @@ this.onLeftClick = function(event) {
 
 this.submitPokestop = function() {
 	postPokestop({
-	"name": document.getElementById("pokestopForm").elements["name"].value,
+	"name": document.getElementById("createPokestopForm").elements["name"].value,
 	"lat": userInputMarker.getLatLng().lat,
 	"lng": userInputMarker.getLatLng().lng,
 	"reporter": "Web-client" //TODO: Get this from Auth API.

@@ -61,12 +61,13 @@ this.setUpPokestops = function(pokestops) {
 }
 
 this.createPokestopPopupText = function(pokestop) {
-    return `<h1>${pokestop.name}</h1>
-    <br><br>Reported by ${pokestop.reporter}`;
-    
-    //TODO: Add task if existant, otherwise report task form
-    /*<br><b>Task:</b> ${pokestop.research.task}
-    <br><b>Reward:</b> ${pokestop.research.reward}*/
+    if(pokestop.researchReport) {
+        return document.getElementById("researchReportDetails").outerHTML;
+    }
+    else {
+        console.log(document.getElementById("researchReportForm").cloneNode(true));
+        return document.getElementById("researchReportForm").cloneNode(true);
+    }
 }
 
 this.setUpPokestopMarker = function(pokestop) {
