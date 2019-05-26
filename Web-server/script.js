@@ -44,7 +44,6 @@ this.submitPokestop = function() {
 }
 
 this.submitResearchReport = function() {
-	console.log(selectedMarker.options.pokestop._id);
 	postResearchReport({
 		"pokestopId": selectedMarker.options.pokestop._id,
 		"task": document.getElementById("researchReportForm").elements["task"].value,
