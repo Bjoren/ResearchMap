@@ -18,7 +18,7 @@ const newPokestopIcon = new L.Icon({
 
 var pokestopMarker = L.Marker.extend({
     options: { 
-        _id: ""
+        pokestop: null
     }
 });
 
@@ -53,8 +53,6 @@ this.setUpMap = function() {
 }
 
 this.setUpPokestops = function(pokestops) {
-    pokestopList = pokestops;
-
     pokestops.forEach(pokestop =>{
         setUpPokestopMarker(pokestop);
     });
@@ -62,16 +60,15 @@ this.setUpPokestops = function(pokestops) {
 
 this.createPokestopPopupText = function(pokestop) {
     if(pokestop.researchReport) {
-        return document.getElementById("researchReportDetails").outerHTML;
+        return document.getElementById("researchReportDetails").cloneNode(true);
     }
     else {
-        console.log(document.getElementById("researchReportForm").cloneNode(true));
         return document.getElementById("researchReportForm").cloneNode(true);
     }
 }
 
 this.setUpPokestopMarker = function(pokestop) {
-    var marker = new pokestopMarker([pokestop.lat, pokestop.lng],{"icon": pokestopIcon, "opacity": 0.4, "_id": pokestop._id})
+    var marker = new pokestopMarker([pokestop.lat, pokestop.lng],{"icon": pokestopIcon, "opacity": 0.4, "pokestop": pokestop})
     .bindPopup(createPokestopPopupText(pokestop), {"autoClose": false, "closeButton": false});
     
     marker.namePopup = L.popup({"offset": [0,-50], "closeButton": false})

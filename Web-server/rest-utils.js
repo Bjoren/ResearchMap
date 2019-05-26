@@ -41,7 +41,7 @@ this.getReports = function(successCallback, errorCallback) {
 	    })	
 }		
 
-this.postReport = function(report, successCallback, errorCallback) {
+this.postResearchReport = function(report, successCallback, errorCallback) {
 	$.ajax ({
 	        url: API_URL + '/reports',
 	        type: "POST",

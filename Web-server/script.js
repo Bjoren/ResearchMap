@@ -1,7 +1,6 @@
 'use strict';
 
 var userInputMarker;
-var pokestopList;
 var map;
 
 getConfig(function(resp) { initialSetup(resp); }, function() { alert(resp); });
@@ -42,4 +41,19 @@ this.submitPokestop = function() {
 	}, function(response) {
 		alert(JSON.stringify(response.responseJSON.error));
 	})
+}
+
+this.submitResearchReport = function() {
+	console.log(selectedMarker.options.pokestop._id);
+	postResearchReport({
+		"pokestopId": selectedMarker.options.pokestop._id,
+		"task": document.getElementById("researchReportForm").elements["task"].value,
+		"reward": document.getElementById("researchReportForm").elements["reward"].value,
+		"reporter": "Web-client" //TODO: Get this from Auth API.
+		}, function(response) {
+			selectedMarker.options.pokestop.researchReport = response;
+			selectedMarker.bindPopup(createPokestopPopupText(selectedMarker.options.pokestop));
+		}, function(response) {
+			alert(JSON.stringify(response.responseJSON.error));
+		})
 }
